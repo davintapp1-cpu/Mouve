@@ -1,2 +1,15 @@
 # Mouve
-Code for camera controlled hand 
+
+## Goal
+
+## Hardware Used
+
+## How It Works
+
+## Wiring
+
+## Code
+
+## Challenges
+
+## Demo
