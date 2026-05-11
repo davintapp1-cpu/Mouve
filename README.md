@@ -1,2 +1,2 @@
 # Mouve
-Code for camera controlled Hand 
+Code for camera controlled hand 
