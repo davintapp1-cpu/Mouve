@@ -150,8 +150,8 @@ def main():
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
                 endtime = time.time() # Record the end time of the loop for calculating the frame rate
-                if starttime - endtime == 0.5
-                    pico.write(str(tracker_value).encode()) # Send the tracker value to the Pico via serial communication
+                if endtime - starttime >= 0.5:
+                    pico.write((str(tracker_value) + "\n").encode("utf-8")) # Send the tracker value to the Pico via serial communication
                     starttime = time.time() # Reset the start time for the next frame
 
 
