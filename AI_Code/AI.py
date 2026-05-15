@@ -2,6 +2,12 @@ import cv2
 import mediapipe as mp
 import time
 import math
+import serial
+
+
+Port = "/dev/cu.usbmodem101"
+Baud = 115200
+pico = serial.Serial(Port, Baud, timeout=0)
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -100,6 +106,7 @@ def main():
             rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # Convert the image to RGB format for MediaPipe
             results = hands.process(rgb_img) # Process the image and find hands
             Starting_position = get_finger_values(results.multi_hand_landmarks[0]) if results.multi_hand_landmarks else None
+            starttime = time.time()
 
             while True:
                 success, img = cap.read() # Read a frame from the video feed
@@ -137,12 +144,15 @@ def main():
                         
                 #show the image
                 cv2.imshow("Image", img)
-                #print ("distence of pointer from original position: " + str(Starting_position["index"] - position["index"])) # Print the distance of the index fingertip from its original position to the console for debugging purposes
-
+                tracker_value = Starting_position["index"] - position["index"] 
+                print(tracker_value) # Print the calculated tracker value to the console for debugging purposes
                 #break the loop if 'q' is pressed
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-    
+                endtime = time.time() # Record the end time of the loop for calculating the frame rate
+                if starttime - endtime == 0.5
+                    pico.write(str(tracker_value).encode()) # Send the tracker value to the Pico via serial communication
+                    starttime = time.time() # Reset the start time for the next frame
 
 
 if __name__ == "__main__":
