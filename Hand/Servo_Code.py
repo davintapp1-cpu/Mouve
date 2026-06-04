@@ -36,6 +36,8 @@ while True:
             parts = line.split()
             servo_name = parts[0]
             tracked_value = float(parts[1])
+            if servo_name == "thumb":
+                tracked_value = 2*tracked_value
 
             if tracked_value < 0.0:
                 tracked_value = 0.0
