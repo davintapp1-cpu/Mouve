@@ -7,10 +7,10 @@ poll = select.poll()
 poll.register(sys.stdin, select.POLLIN)
 
 servos = {
-    "index":PWM(Pin(0)),
-    "middle":PWM(Pin(1)),
-    "ring":PWM(Pin(2)),
-    "pinky":PWM(Pin(3)),
+    "index":PWM(Pin(3)),
+    "middle":PWM(Pin(2)),
+    "ring":PWM(Pin(1)),
+    "pinky":PWM(Pin(0)),
     "thumb":PWM(Pin(4))
 }
 
