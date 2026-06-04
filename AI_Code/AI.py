@@ -159,7 +159,7 @@ def main():
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
                 endtime = time.time() # Record the end time of the loop for calculating the frame rate
-                if endtime - starttime >= 0.5:
+                if endtime - starttime >= 0.05:
                     
                     pico.write(("index " + str(index_location) + "\n").encode("utf-8"))
                     pico.write(("middle " + str(middle_location) + "\n").encode("utf-8"))
