@@ -144,14 +144,26 @@ def main():
                         
                 #show the image
                 cv2.imshow("Image", img)
-                tracker_value = Starting_position["index"] - position["index"] 
-                print(tracker_value) # Print the calculated tracker value to the console for debugging purposes
+                
+                index_location = Starting_position["index"] - position["index"] 
+                middle_location = Starting_position["middle"] - position["middle"]
+                ring_location = Starting_position["ring"] - position["ring"]
+                pinky_location = Starting_position["pinky"] - position["pinky"]
+                thumb_location = Starting_position["thumb"] - position["thumb"]
+
+                #print(index_location) # Print the calculated index location to the console for debugging purposes
                 #break the loop if 'q' is pressed
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
                 endtime = time.time() # Record the end time of the loop for calculating the frame rate
                 if endtime - starttime >= 0.5:
-                    pico.write((str(tracker_value) + "\n").encode("utf-8")) # Send the tracker value to the Pico via serial communication
+                    
+                    pico.write(("index " + str(index_location) + "\n").encode("utf-8"))
+                    pico.write(("middle " + str(middle_location) + "\n").encode("utf-8"))
+                    pico.write(("ring " + str(ring_location) + "\n").encode("utf-8"))
+                    pico.write(("pinky " + str(pinky_location) + "\n").encode("utf-8"))
+                    pico.write(("thumb " + str(thumb_location) + "\n").encode("utf-8"))
+
                     starttime = time.time() # Reset the start time for the next frame
 
 
