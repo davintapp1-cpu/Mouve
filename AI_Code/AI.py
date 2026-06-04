@@ -27,13 +27,13 @@ def get_finger_values(hand_landmarks):
     landmarks = hand_landmarks.landmark
 
     wrist = landmarks[mp_hands.HandLandmark.WRIST]
+    
     middle_mcp = landmarks[mp_hands.HandLandmark.MIDDLE_FINGER_MCP]
 
     # Scale helps ignore hand moving closer/farther from camera
     hand_scale = distance(wrist, middle_mcp) #converts "landmark" to "float" as well
 
     finger_tips = {
-        "thumb": landmarks[mp_hands.HandLandmark.THUMB_TIP],
         "index": landmarks[mp_hands.HandLandmark.INDEX_FINGER_TIP],
         "middle": landmarks[mp_hands.HandLandmark.MIDDLE_FINGER_TIP],
         "ring": landmarks[mp_hands.HandLandmark.RING_FINGER_TIP],
@@ -44,6 +44,9 @@ def get_finger_values(hand_landmarks):
 
     for finger, tip in finger_tips.items():
         values[finger] = distance(tip, wrist) / hand_scale
+        
+    thumb_tip = landmarks[mp_hands.HandLandmark.THUMB_TIP]
+    values["thumb"] = distance(thumb_tip, middle_mcp) / hand_scale
 
     return values
 
@@ -163,6 +166,7 @@ def main():
                     pico.write(("ring " + str(ring_location) + "\n").encode("utf-8"))
                     pico.write(("pinky " + str(pinky_location) + "\n").encode("utf-8"))
                     pico.write(("thumb " + str(thumb_location) + "\n").encode("utf-8"))
+                    print("Sent data to Pico: index " + str(index_location) + ", middle " + str(middle_location) + ", ring " + str(ring_location) + ", pinky " + str(pinky_location) + ", thumb " + str(thumb_location)) # Print the data sent to the Pico for debugging purposes
 
                     starttime = time.time() # Reset the start time for the next frame
 
